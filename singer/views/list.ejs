@@ -8,18 +8,18 @@
     <title>List Singer</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/style.css" type="text/css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../public/style.css">
 </head>
 
 <body>
     <div class="container">
-        <button class="col-2 btn btn-success">Add New Singer</button>
+        <a class="col-2 btn btn-success" href="/add">Add New Singer</a>
         <table class="table">
             <tr>
                 <th>#</th>
@@ -28,16 +28,23 @@
                 <th>Link</th>
                 <th>Modify</th>
             </tr>
+            <%
+            arrSinger.forEach(singer => {
+            %>
             <tr>
-                <td><%= Info.id %></td>
-                <td><%= Info.name %></td>
-                <td><img src= "<%= Info.image %>" class="mx-auto d-block img-fluid"></td>
-                <td><a href="<%= Info.link %>"><%= Info.name %>/a></td>
+                <td><%= singer.id %></td>
+                <td><%= singer.name %></td>
+                <td><img src="<%= domainImg + singer.image %>" class="mx-auto d-block img-fluid"></td>
+                <td><a href="<%= domainLink + singer.link %>" target="_blank"> Click to details</a></td>
                 <td>
                     <button class="btn btn-warning">Remove</button><br>
                     <button class="btn btn-info">Update</button>
                 </td>
             </tr>
+            <%
+        })
+            %>
+
         </table>
     </div>
 </body>
