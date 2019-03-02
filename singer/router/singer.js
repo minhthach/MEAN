@@ -7,11 +7,27 @@ router.get('/list', (req, res) => {
     res.render('list', { arrSinger, domainImg, domainLink })
 })
 
-// app.get('/update/:id', (req, res) => {
-//     let id = req.params;
-//     let newSinger = arrSinger[]
-//     res.render('update')
-// })
+router.get('/update/:id', (req, res) => {
+    const selectedId = req.params
+    const selectedSinger = arrSinger.filter(Singer => Singer.id === parseInt(selectedId.id))
+    res.render('update', {selectedSinger, domainImg, domainLink})
+})
+
+router.post('/update-singer/:id', (req, res) => {
+    const selectedId = req.params;
+    const {txtName, txtLink, txtImage} = req.body;
+    const indexSinger = arrSinger.findIndex(Singer => Singer.id === parseInt(selectedId.id))
+    const singerUpdated = new Singer(parseInt(selectedId.id), txtName, txtImage, txtLink);
+    arrSinger.splice(indexSinger, 1, singerUpdated)
+    res.redirect('/list')
+})
+
+router.get('/remove/:id', (req, res) => {
+    const selectedId = req.params;
+    const indexSinger = arrSinger.findIndex(Singer => Singer.id === parseInt(selectedId.id))
+    arrSinger.splice(indexSinger, 1)
+    res.redirect('/list')
+})
 
 router.get('/add', (req, res) => {
     res.render('add')
@@ -19,7 +35,7 @@ router.get('/add', (req, res) => {
 
 router.post('/add-singer', (req, res) => {
     const { txtName, txtImage, txtLink } = req.body;
-    const id = Math.floor(Math.random * 1000, 0);
+    const id = Math.floor(Math.random() * 1000, 0);
     newSinger = new Singer(id, txtName, txtImage, txtLink)
     arrSinger.push(newSinger)
     res.redirect('/list')
