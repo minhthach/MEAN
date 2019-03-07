@@ -32,16 +32,32 @@
             arrSinger.forEach(singer => {
             %>
             <tr>
-                <td><%= singer.id %></td>
-                <td><%= singer.name %></td>
+                <td id="id"><%= singer.id %></td>
+                <td id="name"><%= singer.name %></td>
                 <td><img src="<%= domainImg + singer.image %>" class="mx-auto d-block img-fluid"></td>
                 <td><a href="<%= domainLink + singer.link %>" target="_blank"> Click to details</a></td>
                 <td>
+                    <!-- <a class="btn btn-warning" onclick= " return confirm( 'Are you sure you want to remove <%= singer.name %>')"
+                        href="/remove/<%= singer.id %>" )>Remove</a><br><br> -->
                     <button class="btn btn-warning" data-toggle="modal" data-target="#myModal">Remove</button><br><br>
+                    <div class="modal" id="myModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Confirm to continue</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to remove <%= singer.name %>
+                                </div>
+                                <div class="modal-footer">
+                                    <a type="button" class="btn btn-success" href="/remove/<%= singer.id %>">Remove</a>
+                                    <a type="button" class="btn btn-danger" href="/list">Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <a class="btn btn-info" href="/update/<%= singer.id %>">Update</a>
-                    <script>
-                        let id = singer.id
-                    </script>
                 </td>
             </tr>
             <%
@@ -49,29 +65,18 @@
             %>
         </table>
     </div>
+    <!--
+    Sử dụng button, function cho hàm confirm, điều hướng bằng window.location
+-->
     <!-- <script>
-            <div class="modal" id = "myModal" >
-                <div class="modal-dialog">
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-                            <h4 class="modal-title">Modal Heading</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-
-                        <div class="modal-body">
-                            Modal body..
-                                </div>
-
-                        <div class="modal-footer">
-                            <a type="button" class="btn btn-danger" href="/remove/id">Close</a>
-                        </div>
-                    </div>
-                </div>
-                </div>
+        function confirmSinger(singer, id) {
+            if (confirm(`Are you sure you want to remove ${singer}`) == true) {
+                window.location = `/remove/${id}`;
+            } else {
+                window.location = `/list`;
+            }
+        }
     </script> -->
-
-    </div>
 
 </body>
 
