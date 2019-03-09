@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({
     extended: false // nhận data dạng string || array
 }))
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 const routerSinger = require('./router/singer');
 const routerUser = require('./router/user');
