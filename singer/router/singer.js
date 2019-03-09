@@ -12,22 +12,23 @@ router.get('/list', (req, res) => {
 })
 
 router.get('/update/:id', (req, res) => {
-    const { selectedId } = req.params // Sử dụng object {} để nhận về giá trị số
-    const selectedSinger = arrSinger.find(Singer => Singer.id == selectedId)
-    console.log(selectedId)
+    const { id } = req.params; // Sử dụng object {} để nhận về giá trị số
+    const selectedSinger = arrSinger.find(Singer => Singer.id == id)
+    console.log(id)
     !selectedSinger ? res.send({ error: 'Singer not found'}) : res.render('update', {selectedSinger, domainImg, domainLink})
 })
 
 router.post('/update-singer', (req, res) => {
     // const selectedId = req.params;
     const {txtId, txtName, txtLink, txtImage} = req.body;
-    let Singer = arrSinger.find(Singer => Singer.id === txtId);
+    let Singer = arrSinger.find(Singer => Singer.id == txtId);
     if (!Singer) {
         res.send({error: 'Singer not found!'})
     } else {
-        Singer.name = txtName;
+        Singer.name = txtName; 
         Singer.link = txtLink;
         Singer.image = txtImage;
+        console.log(arrSinger)
         res.redirect('/list')
     }
     // Sai logic: 
