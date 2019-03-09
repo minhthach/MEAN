@@ -4,7 +4,7 @@ const { arrSinger, Singer, domainImg, domainLink } = require('../models/singer')
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.redirect('/list')
+    res.redirect('/list');
 })
 
 router.get('/list', (req, res) => {
