@@ -121,6 +121,24 @@ const blog = mongoose.model('blogs', BlogSchema)
 //     .catch((err) => console.log(err.message))
 
 // Sort: truyền vào asc, desc hoặc 1, -1 hoặc ascending, descending
-user.find().sort({username: -1})
+// user.find().sort({ username: -1 })
+//     .then((user) => console.log(user))
+//     .catch((err) => console.log(err.message))
+
+// Limit 0, 10 
+// user.find().limit(3)
+//     .then((user) => console.log(user))
+//     .catch((err) => console.log(err.message))
+
+// 2,3: skip(position),limit(quantity) 
+// user.find().skip(2).limit(3)
+//     .then((user) => console.log(user))
+//     .catch((err) => console.log(err.message))
+
+user.find({
+    username: {
+        $regex: /admin/
+    }
+}).updateMany({ password: 'aaaaaaaaaaaaaaa' })
     .then((user) => console.log(user))
     .catch((err) => console.log(err.message))
