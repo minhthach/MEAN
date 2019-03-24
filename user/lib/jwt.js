@@ -9,24 +9,26 @@
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = '270196'
 
-
-function sign(user) {
+function sign(object) {
     // return token
     return new Promise((resolve, reject) => {
-        jwt.sign(user, SECRET_KEY, {expiresIn: 1200}, (err, encoded) => {
+        jwt.sign(object, SECRET_KEY, {expiresIn: 12000}, (err, encoded) => {
             if (err) return reject(err.message)
             return resolve(encoded)
         })
     })
 }
 
-function verify(toke) {
+function verify(token) {
     // return object
     return new Promise((resolve, reject) => {
-        jwt.verify(token, SECRET_KEY, {expiresIn: 1200}, (err, obj))
-        if (err) return reject(err.message)
-        delete obj.exp
-        delete obj.iat
-        return resolve(obj)
+        jwt.verify(token, SECRET_KEY, {expiresIn: 12000}, (err, obj) => {
+            if (err) return reject(err.message)
+            delete obj.exp;
+            delete obj.iat;
+            return resolve(obj)
+        })
     })
 }
+
+module.exports = {sign, verify}
