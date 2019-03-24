@@ -3,7 +3,7 @@ const { hash, compare } = require('../lib/bcrypt');
 const route = express.Router()
 const UserModel = require('../model/User');
 const { sign } = require('../lib/jwt');
-const { redirectIfLoggedIn } = require('../lib/checkLogin')
+const { checkLogin, redirectIfLoggedIn } = require('../lib/checkLogin')
 
 
 route.get('/register', (req, res) => {
@@ -42,7 +42,7 @@ route.get('/login', (req, res) => {
     res.render('login')
 })
 
-route.post('/login', (req, res) => {
+route.post('/login', redirectIfLoggedIn, (req, res) => {
     //find user by email
     const { email, password } = req.body;
     UserModel.findOne({ email: email })
@@ -80,8 +80,11 @@ route.post('/login', (req, res) => {
         })
 })
 
-route.get('/logout', redirectIfLoggedIn, (req, res) => {
-    res.clearCookie('tokenUser').redirect('/user/login')
+route.get('/logout', checkLogin, (req, res) => {
+    // const tokenUser = res.cookie.tokenUser
+    // if(!tokenUser) return res.redirect('/user/login')
+    res.clearCookie('tokenUser')
+    res.redirect('/user/login')
 })
 
 module.exports = route

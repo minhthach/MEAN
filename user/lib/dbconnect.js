@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://localhost:27017/user', {
+mongoose.connect('mongodb+srv://minhthach:tmt27011996@cluster0-wga8o.mongodb.net/test?retryWrites=true', {
     useNewUrlParser: true,
     useCreateIndex: true
 })
